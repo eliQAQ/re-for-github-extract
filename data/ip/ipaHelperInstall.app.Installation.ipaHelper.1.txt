@@ -1,0 +1,292 @@
+.\"Comments go here
+.\"Process this page with: groff -man -Tascii ipa-helper.1
+.\"
+.TH IPAHELPER 1 "MARCH 2014" Linux "IPAHELPER MAN PAGE"
+.SH NAME
+.B ipaHelper
+\-\- script to help with examining and resigning ipa files
+.SH SYNOPSIS
+.B ipaHelper profile [
+file
+.B ] [
+options
+.B ]
+.br
+.B ipaHelper find [
+file
+.B ] [
+options
+.B ]
+.br
+.B ipaHelper info [
+file
+.B ] [
+options
+.B ]
+.br
+.B ipaHelper summary [
+file
+.B ] [
+options
+.B ]
+.br
+.B ipaHelper clean [
+file
+.B |
+--all
+.B ]
+.br
+.B ipaHelper rezip [
+outputfile
+.B ]
+.br
+.B ipaHelper verify [
+file
+.B ]
+.br
+.B ipaHelper resign [
+file
+.B ] [
+options
+.B ]
+.br
+.B ipaHelper open [
+file
+.B ]
+.br
+.B ipaHelper help [
+-v
+.B ] [
+commands
+.B ]
+.br
+
+.SH DESCRIPTION
+.B PROFILE
+
+.B ipaHelper profile [
+file
+.B ] [
+options
+.B ]
+.br
+
+Checks the profile of an ipa, app, xcarchive, or zip file containing an app file, or shows the information about a .mobileprovision file
+
+If no file is provided, the first (alphabetically) ipa file in the working directory is used.
+            
+If no options are present, a summary of the provisioning profile is displayed.
+                
+.B Profile Options
+                
+.B -v, --verbose 
+    display the entire profile in xml format
+
+.B -e, --entitlements
+    display the entitlements on the profile
+
+.B FIND
+
+.B ipaHelper find [
+file
+.B ] [
+options
+.B ]
+.br
+
+Looks for profiles saved in the users library matching the bundle ID of the ipa, app, xcarchive or zip file containing an app file. 
+
+If no file is provided, the first (alphabetically) ipa file in the working directory is used.
+
+.B Find Options:
+
+.B -m
+.I pattern
+.B , --matching
+.I pattern
+.br 
+    only displays profiles matching
+.I pattern
+.br
+
+.B -n, --no-wildcard
+    only displays profiles with exact matches to the bundle ID, and not matching wildcard profiles
+
+.B -a, --all
+    displays all profiles in the users library.  Ignores --no-wildcard option.
+
+.B --json
+    returns the profile information in a JSON dictionary
+
+.B INFO
+
+.B ipaHelper info [
+file
+.B ] [
+options
+.B ]
+.br
+
+Checks the Info.plist of an ipa, app, xcarchive, or zip file containing an app file, or shows the information about an Info.plist file
+
+If no file is provided, the first (alphabetically) ipa file in the working directory is used.
+         
+If no options are present, a summary of the Info.plist is displayed.
+                
+.B Info Options:
+
+.B -e
+.I editor
+.B , --edit
+.I editor
+.br 
+    edit the Info.plist with
+.I editor.
+If no editor is provided, default $EDITOR is used
+
+.B -v, --verbose 
+    display the entire Info.plist in xml format
+
+.B SUMMARY
+
+.B ipaHelper summary [
+file
+.B ]
+.br
+
+Displays profile and info.plist information about an ipa, app, xcarchive, or zip file containing an app file.
+
+If no file is provided the first (alphabetically) ipa file in the working directory is used.
+
+.B Summary Options:
+
+.B Options:
+        
+.B --json 
+    return the summary information in a JSON dictionary.  Also adds the a key "AppDirectory" for the temporary unzipped app.
+        
+.B -dc,  --dont-clean 
+    do not remove the temporary app directory after returning summary information
+
+.B CLEAN
+
+.B ipaHelper clean [
+file
+.B |
+--all
+.B ]
+
+
+Cleans temporary files left over from previous command with the --dont-clean option.
+If run with the --all option, the entire temp folder for ipaHelper is deleted.
+If
+.I file
+is supplied, the temporary folder associated with that file is deleted.
+
+.B REZIP
+
+.B ipaHelper rezip [
+outputfile
+.B ]
+
+Rezips left over temporary files from Summary command with the --dont-clean option as 
+.I outputfile
+
+.I Outputfile
+must be an app, ipa, appex, or zip file.
+
+.B VERIFY
+
+.B ipaHelper verify [
+file
+.B ]
+.br
+
+Checks to make sure the necessary code signing components are in place for an ipa file.
+
+If no file is provided the first (alphabetically) ipa file in the working directory is used.
+
+.B RESIGN
+
+.B ipaHelper resign [
+file
+.B ] [
+options
+.B ]
+.br
+
+Removes the code signature from an ipa, app, xcarchive, appex, or zip file containing an app file, and replaces it either with the first profile (alphabetically) in the directory with the file.
+
+Resigns the file using the certificate on the profile and entitlements matching the profile, zips the resigned ipa file with the output filename.  If no output filename is provided, [filename]-resigned.[filetype] is used.  The same filetype as the input filetype is used by default, except xcarchives resign as app files.
+    
+If no file is provided, the first (alphabetically) ipa file in the working directory is used.
+        
+.B Resign Options:
+        
+.B -p
+.I profile
+.B ,
+.B --profile
+.I profile
+.br
+    use
+.I profile
+for resigning the ipa
+
+.B -f, --find
+    looks for a profile in the users library matching the ipa files bundle ID
+
+.B -m
+.I patterns
+.B , --matching
+.I patterns
+.br
+    restricts the --find option to only profiles matching
+.I patterns
+
+.B -o
+.I filename
+.B ,
+.B --output
+.I filename
+.br
+    resign the ipa file as  
+.I filename
+instead of [filename]-resigned.ipa
+
+.B --overwrite
+    overwrites the original file with the resigned file (ignores the --output option)
+
+.B -d, --double-check 
+    display information about the file, its Info.plist, and the provisioning profile and have be given an option to continue with the resign or quit
+
+.B -F, --force
+    overwrites output file on resign without asking.  Uses the profiles App ID if the App ID and Bundle ID do not match.
+
+.B OPEN
+
+.B ipaHelper open [
+file
+.B ]
+
+Copies file into a temporary file location, unzipped and prints the path to the app file.
+
+If no file is provided, the first (alphabetically) ipa file in the working directory is used.
+
+.B HELP
+
+.B ipaHelper help [
+-v
+.B ] [
+commands...
+.B ]
+
+Displays usage information for the different commands.
+
+If -v option is present it shows the usage information for all of the commands.
+
+.B Commands: 
+    Profile   Find  Info   Summary   Clean  Rezip   Verify   Resign  Help
+
+.SH AUTHOR
+Marcus Smith

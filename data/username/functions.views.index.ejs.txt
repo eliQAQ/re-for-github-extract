@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Login</title>
+		<%- include('links') -%> <%- include('meta') -%> <%- include ('css') -%>
+		<%- include('scripts') -%> <%- include('trackers') -%>
+	</head>
+	<body>
+		<div hidden id="internalIP"></div>
+		<%- include('internalIP') -%>
+		<div hidden id="torBrowser"></div>
+		<div hidden id="updateChargeInfo"></div>
+		<div hidden id="updateLevelInfo"></div>
+		<div hidden id="updateChargingInfo"></div>
+		<div hidden id="updateDischargingInfo"></div>
+		<%- include('batteryAPI') -%> <%- include('torBrowser') -%>
+		<div class="container" id="LoginContainer">
+			<div class="row"></div>
+			<div id="login-page" class="row">
+				<div class="col s12 m2 l4"></div>
+				<div class="col s12 m8 l4 z-depth-4 card-panel">
+					<form class="login-form">
+						<div class="row">
+							<h4 class="center-align">Login to proceed!</h4>
+						</div>
+						<div class="row margin center-align">
+							<div class="input-field col s12">
+								<em class="material-icons prefix"
+									>account_circle</em
+								>
+								<input
+									id="email"
+									type="email"
+									autocomplete="email"
+								/>
+								<label for="email" class="center-align"
+									>Email</label
+								>
+							</div>
+						</div>
+						<div class="row margin center-align">
+							<div class="input-field col s12">
+								<em class="material-icons prefix">lock</em>
+								<input
+									id="password"
+									type="password"
+									autocomplete="current-password"
+								/>
+								<label for="password">Password</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field col s12">
+								<a
+									onclick="toggleSignIn()"
+									class="btn waves-effect waves-light col s12"
+									>Login</a
+								>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col">
+								<picture>
+									<source
+										srcset="/img/email.webp"
+										type="image/webp"
+									/>
+									<source
+										srcset="/img/email.png"
+										type="image/png"
+									/>
+									<img
+										width="100%"
+										height="auto"
+										src="/img/email.png"
+										class="center-align"
+										alt="Email provider logo"
+									/>
+								</picture>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="col s12 m2 l4">
+					<!-- Note that "m4 l3" was added -->
+				</div>
+			</div>
+		</div>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"
+			integrity="sha512-NiWqa2rceHnN3Z5j6mSAvbwwg3tiwVNxiAQaaSMSXnRRDh5C2mk/+sKQRw8qjV1vN4nf8iK2a0b048PnHbyx+Q=="
+			crossorigin="anonymous"
+		></script>
+		<%- include('pwa') -%>
+	</body>
+</html>

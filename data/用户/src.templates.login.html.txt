@@ -1,0 +1,43 @@
+<!DOCTYPE html><html>
+<head>
+	<meta charset="UTF-8">
+	<title>登录 - InfoPi</title>
+	<meta content="width=device-width" name="viewport">
+	<style>body{-webkit-text-size-adjust:200%}</style>
+</head>
+<body bgcolor="#99CCCC">
+<form action="/login" method="post">
+<table>
+	<tr align=center>
+		<td>用户名</td>
+		<td><input type="text" name="username"></td>
+	</tr>
+    <tr align=center>
+		<td>密码</td>
+		<td><input type="password" name="password"></td>
+	</tr>
+    <tr align=center>
+		<td colspan="2">
+		<button name="name" value="toc">登录到电脑版</button>
+		</td>
+	</tr>
+    <tr align=center>
+		<td colspan="2">
+		<button name="name" value="top">登录到PAD版</button>
+		</td>
+	</tr>
+    <tr align=center>
+		<td colspan="2">
+		<button name="name" value="tob">登录到大屏手机版</button>
+		</td>
+	</tr>
+    <tr align=center>
+		<td colspan="2">
+		<button name="name" value="tom">登录到手机版</button>
+		</td>
+	</tr>
+</table>
+</form>
+<br>{{msg|safe}}
+</body>
+</html>

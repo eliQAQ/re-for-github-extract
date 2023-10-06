@@ -1,0 +1,31 @@
+<!DOCTYPE html><html><head>
+	<meta charset="UTF-8">
+	<title>InfoPi</title>
+	<style>a{TEXT-DECORATION:none}</style>
+</head>
+
+<body bgcolor="#ccccff">
+共有{{user_num}}个用户，共启用了{{source_num}}个信息源：
+<table border="1" width="100%">
+<tr>
+    <td align="center">source_id</td>
+    <td align="center">name/link</td>
+    <td align="center">刷新间隔</td>
+    <td align="center">最近有效刷新</td>
+    <td align="center">最近一条信息</td>
+    <td align="center">用户列表</td>
+</tr>
+{% for item in items -%}
+<tr bgcolor="{% if item.color == 1 %}#ff9999{% else %}#99cc66{% endif %}">
+    <td>{{item.source.source_id}}</td>
+    <td>{% if item.source.link %}<a href="{{item.source.link}}" target="_blank">{{item.source.name}}</a>{% else %}{{item.source.name}}{% endif %}</td>
+    <td>{{item.interval_str}}</td>
+    <td>{{item.source.last_fetch_date}}</td>
+    <td>{{item.source.last_date_distance()}}</td>
+    <td>{{item.userlist}}</td>
+</tr><tr><td colspan="6">{{item.source.comment}}</td>
+</tr>
+{% endfor %}
+</table>
+<br><br>
+</body></html>

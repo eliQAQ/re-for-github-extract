@@ -1,0 +1,30 @@
+import java.util.Scanner;
+
+public class Main {
+
+	public static void main(String[] args) {
+		Generator my = new Generator();
+		Scanner scan = new Scanner(System.in);
+		String characters = new String("seungwoo");//입력받는 텍스트
+		int digits=1004;//입력받는 숫자
+		int type;/*이건 사이트에 따라 결정됨
+		1: 숫자, 문자, 특수문자 사용가능(all 숫자나 all 문자 가능)
+		2: 숫자, 문자, 특수문자 사용가능한데 all 숫자 혹은 all 문자는 안됨
+		3: 숫자, 문자, 특수문자 사용가능한데 3개연속문자나 3개연속숫자는 안됨
+		이 type는 명호한테 db에서 뽑아오라고 하면 금방 해준다긴 하네 
+		*/
+		System.out.println("랜덤 비밀번호하려면 0, 입력하려면 1 입력해주셈");
+		my.self_password=scan.nextInt();
+		if(my.self_password==1){
+			//여기서 문자랑 숫자 입력받음, 일단은 위에처럼 설정함, 근데 문자열에 숫자 들어가도 상관없을듯
+			my.setIncludeChar(characters);
+			my.setIncludeNum(1004);
+		}
+			System.out.println("Enter length:");
+			my.length=scan.nextInt();
+
+			System.out.println("Enter type:");
+		my.type=scan.nextInt();
+		System.out.println("Password is : "+my.getPassword());
+	}
+}

@@ -1,0 +1,53 @@
+{
+	"title": "Phishing",
+	"name": "phishing",
+	"description": "Phishing is the fraudulent attempt to obtain sensitive information such as usernames, passwords and credit card details by disguising as a trustworthy entity in an electronic communication. This is a demo of a phishing attack by a web site.",
+	"version": "3.0.1",
+	"main": "index.js",
+	"keywords": [
+		"phishing",
+		"fraudulent",
+		"sensitive",
+		"tracking",
+		"system",
+		"demo",
+		"attack"
+	],
+	"man": [
+		"../README.MD"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/AravindVNair99/Phishing.git"
+	},
+	"author": {
+		"name": "Aravind V. Nair",
+		"url": "https://github.com/AravindVNair99/"
+	},
+	"license": "Apache License 2.0",
+	"bugs": {
+		"url": "https://github.com/AravindVNair99/Phishing/issues"
+	},
+	"homepage": "https://all-about-aravind.firebaseapp.com",
+	"scripts": {
+		"lint": "eslint .",
+		"serve": "firebase serve --only functions",
+		"shell": "firebase functions:shell",
+		"start": "npm run shell",
+		"deploy": "firebase deploy --only functions",
+		"logs": "firebase functions:log"
+	},
+	"dependencies": {
+		"ejs": "^3.1.6",
+		"firebase-admin": "^10.0.2",
+		"firebase-functions": "^3.16.0"
+	},
+	"devDependencies": {
+		"eslint": "^8.42.0",
+		"eslint-config-google": "^0.14.0"
+	},
+	"private": true,
+	"engines": {
+		"node": "12"
+	}
+}

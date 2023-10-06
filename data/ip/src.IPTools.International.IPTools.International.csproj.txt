@@ -1,0 +1,46 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\build\common.props" />
+  <PropertyGroup>
+    <TargetFrameworks>netcoreapp3.1;net45;net451;net452;net461</TargetFrameworks>
+    <Description>Quickly query global IP information, support multi lingual, national, provincial, city, longitude and latitude.Docs: https://github.com/stulzq/IPTools. </Description>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net452' OR '$(TargetFramework)' == 'net451' OR '$(TargetFramework)' == 'net45' OR '$(TargetFramework)' == 'net461'">
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MaxMind.GeoIP2" Version="3.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\IPTools.Core\IPTools.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <DbFiles Include="..\..\db\*.mmdb" />
+  </ItemGroup>
+
+  <!--link reference-->
+  <ItemGroup>
+    <None Include="@(DbFiles)" Condition="Exists(@(DbFiles))">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Visible>True</Visible>
+      <Link>%(FileName).mmdb</Link>
+    </None>
+  </ItemGroup>
+
+  <!--Copy bb files before build to out dir-->
+  <Target Name="CopyDbFilesBeforeBuild" AfterTargets="BeforeBuild">
+    <Copy SourceFiles="@(DbFiles)" DestinationFolder="$(OutDir)" />
+  </Target>
+
+  <Target Name="PrepublishScript" BeforeTargets="PrepareForPublish">
+    <Copy SourceFiles="@(DbFiles)" DestinationFolder="$(PublishDir)" SkipUnchangedFiles="false" />
+  </Target>
+
+</Project>
